@@ -48,6 +48,10 @@ export const Container = styled.div`
         background: #212529;
         color: #f8f9fa;
         border-radius: 4px;
+
+        &:hover {
+          background: #343b41;
+        }
       }
     }
   }
@@ -94,24 +98,47 @@ export const Container = styled.div`
 
     width: 100%;
     max-width: 1440px;
-  }
 
-  h2 {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 28px;
+    .tech {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h2 {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
 
-    color: #f8f9fa;
-  }
-  h3 {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+      color: #f8f9fa;
+    }
 
-    color: #ffffff;
+    button {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 0;
+
+      border: transparent;
+
+      background: #212529;
+      border-radius: 4px;
+
+      .add {
+        width: 32px;
+        height: 32px;
+
+        border-radius: 4px;
+
+        background: #212529;
+        color: #ffffff;
+        &:hover {
+          background: #343b41;
+          cursor: pointer;
+        }
+      }
+    }
   }
 `;
