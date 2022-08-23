@@ -1,9 +1,4 @@
 import React from "react";
-
-import { ToastContainer, toast } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
-
 import Logo from "../Login/Logo.svg";
 
 // import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
@@ -21,7 +16,7 @@ import { useState } from "react";
 function Register() {
   let navigate = useNavigate();
 
-  const [userLogin, setUserLogin] = useState([]);
+  const [setUserLogin] = useState([]);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -173,56 +168,6 @@ function Register() {
           <h5 className="errorContact">{errors.contact?.message}</h5>
         </div>
       </Container>
-      {userLogin === 401 ? (
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          limit={10}
-          theme="dark"
-          pauseOnHover={false}
-        >
-          {toast.error("Ops! Usuário já criado")}
-        </ToastContainer>
-      ) : (
-        /*         <Negative>
-          <AiFillExclamationCircle className="negative" />
-          <h4>Ops! Usuário já criado</h4>
-          <span>X</span>
-          <div></div>
-        </Negative> */
-        <></>
-      )}
-      {userLogin === 201 ? (
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          limit={10}
-          theme="dark"
-          pauseOnHover={false}
-        >
-          {toast.success("Conta criada com sucesso!")}
-        </ToastContainer>
-      ) : (
-        /*         <Sucess>
-          <AiFillCheckCircle className="sucess" />
-          <h4>Conta criada com sucesso!</h4>
-          <span>X</span>
-          <div></div>
-        </Sucess> */
-        <></>
-      )}
     </>
   );
 }

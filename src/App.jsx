@@ -1,11 +1,15 @@
 import React from "react";
+
 import AuthProvider from "./contexts/AuthContext";
+import TechProvider from "./contexts/TechContext";
 import Routes from "./routes";
 
 function App() {
   return (
     <AuthProvider>
-      <Routes />
+      <TechProvider>
+        <Routes />
+      </TechProvider>
     </AuthProvider>
   );
 }

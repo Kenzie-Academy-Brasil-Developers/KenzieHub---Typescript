@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     }
     loadUser();
-  }, []);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, onSubmit, loading }}>
