@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { GrTrash } from "react-icons/gr";
@@ -18,6 +18,8 @@ function Home() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const modalRef = useRef();
+
   function openModal() {
     setModalIsOpen(true);
   }
@@ -25,6 +27,20 @@ function Home() {
   function closeModal() {
     setModalIsOpen(false);
   }
+
+  useEffect(() => {
+    function handleOutClick(event) {
+      if (!modalRef.current.contains(event.target)) {
+        setModalIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutClick);
+    };
+  }, []);
 
   const clear = () => {
     localStorage.clear();
@@ -77,7 +93,7 @@ function Home() {
             </ul>
           </main>
           {modalIsOpen ? (
-            <Modal>
+            <Modal ref={modalRef}>
               <div className="modal-header">
                 <h2>Cadastrar Tecnologia</h2>
                 <button className="closeModal" onClick={closeModal}>
