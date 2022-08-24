@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../Login/Logo.svg";
-
-// import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Container, Form, Header /* Negative, Sucess */ } from "./styles";
+import { Container, Form, Header } from "./styles";
 
 import api from "../../services/api";
 import { useState } from "react";
+import { ToastContext } from "../../contexts/ToastContext";
 
 function Register() {
+  const { addToast } = useContext(ToastContext);
+
   let navigate = useNavigate();
 
   const [setUserLogin] = useState([]);
@@ -56,6 +57,12 @@ function Register() {
           setTimeout(() => {
             if (res.status === 201) {
               navigate("/", { replace: true });
+
+              addToast({
+                type: "sucess",
+                title: "Login realizado com sucesso",
+                description: "Você será redirecionado !!",
+              });
             }
             setUserLogin(res.status);
           }, 5000);

@@ -11,14 +11,30 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TechContext } from "../../contexts/TechContext";
+import { ToastContext } from "../../contexts/ToastContext";
 
 function Home() {
+  const { addToast } = useContext(ToastContext);
   const { user, loading } = useContext(AuthContext);
   const { addTech, removeTech } = useContext(TechContext);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const modalRef = useRef();
+
+  function adicionarToast() {
+    addToast({
+      type: "sucess",
+      title: "Tecnologia adicionada com sucesso!",
+    });
+  }
+
+  function removerToast() {
+    addToast({
+      type: "error",
+      title: "Tecnologia removida com sucesso!",
+    });
+  }
 
   function openModal() {
     setModalIsOpen(true);
@@ -64,7 +80,7 @@ function Home() {
           <nav>
             <div>
               <img src={Logo} alt="KenzieHub" />
-              <Link onClick={clear} to="/" className="return">
+              <Link onClick={() => clear} to="/" className="return">
                 Sair
               </Link>
             </div>
@@ -86,7 +102,7 @@ function Home() {
                   <h3 className="title">{tech.title}</h3>
                   <h3 className="status">{tech.status}</h3>
                   <button onClick={() => removeTech(tech.id)}>
-                    <GrTrash className="trash" />
+                    <GrTrash className="trash" onClick={() => removerToast()} />
                   </button>
                 </li>
               ))}
@@ -120,7 +136,9 @@ function Home() {
                   <option value="avançado">Avançado</option>
                 </select>
                 {/* <h5 className="errorTitle">{errors.title?.message}</h5> */}
-                <button>Cadastrar Tecnologia</button>
+                <button onClick={() => adicionarToast()}>
+                  Cadastrar Tecnologia
+                </button>
               </form>
             </Modal>
           ) : (

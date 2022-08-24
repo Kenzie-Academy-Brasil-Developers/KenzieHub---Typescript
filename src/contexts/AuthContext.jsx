@@ -1,12 +1,15 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import api from "../services/api";
+import { ToastContext } from "./ToastContext";
 
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToast } = useContext(ToastContext);
 
   const navigate = useNavigate();
 
@@ -22,10 +25,24 @@ const AuthProvider = ({ children }) => {
 
           localStorage.setItem("@kenzie-hub:token", token);
           localStorage.setItem("@kenzie-hub:id", id);
+
+          addToast({
+            type: "sucess",
+            title: "Login realizado com sucesso",
+          });
+
           navigate("/home", { replace: true });
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        if (error.response.status === 401) {
+          addToast({
+            type: "error",
+            title: "Erro ao realizar login",
+            description: "Email/Senha incorreto",
+          });
+        }
+      });
   };
 
   useEffect(() => {
