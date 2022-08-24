@@ -28,7 +28,7 @@ function Toast({ message }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [isLeave]);
+  }, [message.id, isLeave, removeToast]);
 
   return (
     <Container
