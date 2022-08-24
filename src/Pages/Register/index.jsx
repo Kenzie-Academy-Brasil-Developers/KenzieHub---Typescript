@@ -54,15 +54,15 @@ function Register() {
       .post("/users", data)
       .then((res) => {
         if (res.status === 201) {
+          addToast({
+            type: "sucess",
+            title: "Conta criada com sucesso",
+            description: "Você será redirecionado...",
+          });
+
           setTimeout(() => {
             if (res.status === 201) {
               navigate("/", { replace: true });
-
-              addToast({
-                type: "sucess",
-                title: "Login realizado com sucesso",
-                description: "Você será redirecionado !!",
-              });
             }
             setUserLogin(res.status);
           }, 5000);
