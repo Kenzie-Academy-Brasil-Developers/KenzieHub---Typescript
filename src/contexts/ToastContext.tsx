@@ -8,14 +8,14 @@ interface IToastProviderProps {
 export interface IAddToast {
   title: string;
   description?: string;
-  type: string;
+  type: "sucess" | "error";
 }
 
 export interface IMessages {
   id: string | number;
   title: string;
   description?: string;
-  type?: string;
+  type: "sucess" | "error";
 }
 
 export interface IToastContext {

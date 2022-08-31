@@ -44,7 +44,13 @@ const ToastTypeVariations = {
   `,
 };
 
-export const Container = styled.div`
+interface IContainerProps {
+  type: "sucess" | "error";
+  isLeave: boolean;
+  hasDescription: boolean;
+}
+
+export const Container = styled.div<IContainerProps>`
   display: flex;
   align-items: center;
   width: 286px;
@@ -59,14 +65,11 @@ export const Container = styled.div`
 
   ${({ type }) => ToastTypeVariations[type]}
 
-  ${({ isLeave }) =>
-    css`
-      animation: ${isLeave ? translateXAnimationLeave : translateXAnimationFrom}
-        0.8s;
-    `}
+  animation: ${({ isLeave }: any) =>
+    isLeave ? translateXAnimationLeave : translateXAnimationFrom};
   animation-fill-mode: forwards;
 
-  > svg {
+  svg {
     margin: 4px 12px 0 0;
   }
 
@@ -95,12 +98,11 @@ export const Container = styled.div`
     right: 16px;
     top: 19px;
     border: 0;
+
     background-color: transparent;
     color: #868e96;
-    cursor: pointer;
 
-    svg {
-    }
+    cursor: pointer;
   }
 
   .barra {

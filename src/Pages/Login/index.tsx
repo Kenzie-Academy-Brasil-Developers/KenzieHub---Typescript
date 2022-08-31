@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import Logo from "./Logo.svg";
 
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext, ILoginUser } from "../../contexts/AuthContext";
 
 import { Container, Form } from "./styles";
 
@@ -22,7 +22,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(formSchema) });
+  } = useForm<ILoginUser>({ resolver: yupResolver(formSchema) });
 
   return (
     <Container>

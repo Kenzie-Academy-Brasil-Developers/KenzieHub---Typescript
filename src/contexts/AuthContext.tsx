@@ -57,9 +57,14 @@ interface IUserWorks {
   updated_at: Date;
 }
 
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 interface IAuthContext {
   user?: IUser | null;
-  onSubmit: (data: IUserRegister) => void;
+  onSubmit: (data: IUserRegister | ILoginUser) => void;
   loading: boolean;
 }
 

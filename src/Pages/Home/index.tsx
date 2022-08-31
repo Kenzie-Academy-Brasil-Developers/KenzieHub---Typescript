@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef, MouseEvent } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { GrTrash } from "react-icons/gr";
@@ -10,7 +10,7 @@ import { Container, Loanding, Modal } from "./styles";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TechContext } from "../../contexts/TechContext";
+import { IAddTech, TechContext } from "../../contexts/TechContext";
 import { ToastContext } from "../../contexts/ToastContext";
 
 function Home() {
@@ -20,7 +20,7 @@ function Home() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const modalRef = useRef();
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   function adicionarToast() {
     addToast({
@@ -45,16 +45,16 @@ function Home() {
   }
 
   useEffect(() => {
-    function handleOutClick(event) {
-      if (!modalRef.current.contains(event.target)) {
+    function handleOutClick(event: MouseEvent) {
+      if (!modalRef?.current?.contains(event.currentTarget)) {
         setModalIsOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handleOutClick);
+    document.addEventListener("mousedown", () => handleOutClick);
 
     return () => {
-      document.removeEventListener("mousedown", handleOutClick);
+      document.removeEventListener("mousedown", () => handleOutClick);
     };
   }, []);
 
@@ -66,7 +66,7 @@ function Home() {
     title: yup.string().required("Tecnológia obrigatória"),
     status: yup.string(),
   });
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<IAddTech>({
     resolver: yupResolver(formSchema),
   });
 
@@ -126,11 +126,7 @@ function Home() {
                 />
 
                 <label htmlFor="status">Selecionar status</label>
-                <select
-                  name="select-status"
-                  id="status"
-                  {...register("status")}
-                >
+                <select id="status" {...register("status")}>
                   <option value="iniciante">Iniciante</option>
                   <option value="intermediário">Intermediário</option>
                   <option value="avançado">Avançado</option>

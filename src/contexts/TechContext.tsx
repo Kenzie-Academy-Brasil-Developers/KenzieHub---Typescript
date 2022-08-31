@@ -4,13 +4,9 @@ import api from "../services/api";
 
 type IId = string | number;
 
-interface IAddTech {
+export interface IAddTech {
   title: string;
-  status: {
-    iniciante: string;
-    intermediário: string;
-    avançado: string;
-  };
+  status: "iniciante" | "intermediário" | "avançado";
 }
 
 export interface ITechProviderProps {
