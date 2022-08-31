@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Logo from "../Login/Logo.svg";
 
 import * as yup from "yup";
@@ -9,15 +9,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Header } from "./styles";
 
 import api from "../../services/api";
-import { useState } from "react";
+
 import { ToastContext } from "../../contexts/ToastContext";
+
+export interface IUserRegister {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  bio: string;
+  contact: number;
+  course_module: string;
+}
 
 function Register() {
   const { addToast } = useContext(ToastContext);
 
   let navigate = useNavigate();
-
-  const [setUserLogin] = useState([]);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -45,11 +53,11 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IUserRegister>({
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IUserRegister) => {
     api
       .post("/users", data)
       .then((res) => {
@@ -64,13 +72,11 @@ function Register() {
             if (res.status === 201) {
               navigate("/", { replace: true });
             }
-            setUserLogin(res.status);
           }, 5000);
         }
       })
       .catch((error) => {
         console.log(error.response.status);
-        setUserLogin(error.response.status);
       });
   };
 
@@ -147,8 +153,8 @@ function Register() {
           <label id="modulo" htmlFor="modulo">
             Selecionar módulo
           </label>
-          <select name="modulo" {...register("course_module")}>
-            <option value="Primeiro Módulo" defaultValue>
+          <select id="modulo" {...register("course_module")}>
+            <option value="Primeiro Módulo">
               Primeiro módulo (Introdução ao Frontend)
             </option>
             <option value="Segundo Módulo">

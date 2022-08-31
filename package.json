@@ -43,5 +43,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/node": "^18.7.14",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^8.3.4",
+    "typescript": "^4.8.2"
+  },
+  "main": "index.js",
+  "repository": "git@github.com:Kenzie-Academy-Brasil-Developers/react-entrega-s2-formulario-de-cadastro-MarcosViniciusDamaceno.git",
+  "author": "Marcos Vinicius Damaceno <marcosvinicius.mmn@gmail.com>",
+  "license": "MIT"
 }

@@ -2,19 +2,26 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Container } from "./styles";
 import { AiFillExclamationCircle, AiFillCheckCircle } from "react-icons/ai";
-import { ToastContext } from "../../contexts/ToastContext";
+import { IMessages, ToastContext } from "../../contexts/ToastContext";
+
+interface IMessageToast {
+  message: IMessages;
+}
+
+type IIsLeave = boolean;
+type ITimer = NodeJS.Timeout;
 
 const icons = {
   sucess: <AiFillCheckCircle size={30} />,
   error: <AiFillExclamationCircle size={30} />,
 };
 
-function Toast({ message }) {
-  const [isLeave, setIsleave] = useState(false);
+function Toast({ message }: IMessageToast) {
+  const [isLeave, setIsleave] = useState<IIsLeave>(false);
   const { removeToast } = useContext(ToastContext);
 
   useEffect(() => {
-    let timer;
+    let timer: ITimer;
     if (isLeave) {
       timer = setTimeout(() => {
         removeToast(message.id);
